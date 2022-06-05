@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const db = require('./queries')
 
@@ -11,6 +12,9 @@ app.use(
     extended: true,
   })
 )
+app.use(cors({
+  origin: '*'
+}));
 
 app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
