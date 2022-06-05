@@ -37,6 +37,15 @@ const getDataBySiteID = (request, response) => {
   })
 }
 
+const getAllSiteID = (request, response) => {
+  pool.query('SELECT Site_ID FROM rawdata', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
 const deleteData = (request, response) => {
   const SiteID = String(request.params.SiteID)
 
@@ -51,5 +60,6 @@ const deleteData = (request, response) => {
 module.exports = {
   getDatas,
   getDataBySiteID,
+  getAllSiteID,
   deleteData,
 }

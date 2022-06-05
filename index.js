@@ -18,6 +18,7 @@ app.get('/', (request, response) => {
 
 app.get('/datas', db.getDatas)
 app.get('/datas/:SiteID', db.getDataBySiteID)
+app.get('/SiteID', db.getAllSiteID)
 app.delete('/datas/:SiteID', db.deleteData)
 
 app.listen(port, () => {
