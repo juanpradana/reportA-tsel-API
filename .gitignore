@@ -2,7 +2,8 @@
 /node_modules
 
 # important
-config.js
+/config
+.env
 
 package-lock.json
 workspace.code-workspace
