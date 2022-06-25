@@ -13,6 +13,12 @@ module.exports = function(app) {
 
   // FOR OTHER
   app.get(
+    '/datas/filter',
+    [authJwt.verifyToken],
+    controller.filterData
+  )
+
+  app.get(
     '/datas',
     [authJwt.verifyToken],
     controller.getDatas
@@ -28,6 +34,12 @@ module.exports = function(app) {
     '/SiteID',
     [authJwt.verifyToken],
     controller.getAllSiteID
+  )
+
+  app.post(
+    '/addDatas',
+    [authJwt.verifyToken],
+    controller.addDatas
   )
 
   app.delete(
