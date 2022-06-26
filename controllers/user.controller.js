@@ -91,26 +91,41 @@ exports.filterData = (request, response) => {
   return
 }
 
-// exports.addDatas = (request, response) => {
-//   const makeHead = (item) => {
-//     return [Object.keys(item)]
-//   }
+exports.addDatas = (request, response) => {
+  const makeHead = (item) => {
+    return [Object.keys(item)]
+  }
 
-//   const makeRow = (item) => {
-//     return [`'${Object.values(item)}'`]
-//   }
+  const makeRow = (item) => {
+    return [`'${Object.values(item)}'`]
+  }
 
-//   const HEAD = request.body.map(makeHead).toString()
-//   const ROW = request.body.map(makeRow).toString()
-//   // console.log(request.body[0].Site_ID)
-//   pool.query(`INSERT INTO rawdata (${HEAD}) SELECT TOP 1 (${ROW}) FROM rawdata WHERE NOT EXISTS (SELECT * FROM rawdata WHERE site_id='${request.body[0].Site_ID}')`, (error, results) => {
-//     if (error) {
-//       response.status(400).json({"message": "bad request"})
-//       return error
-//     }
-//     response.status(200).send('Data added')
-//   })
-// }
+  const HEAD = request.body.map(makeHead).toString()
+  const ROW = request.body.map(makeRow).toString()
+  if (request.body[0].Site_ID) {
+    pool.query(`INSERT INTO transitdata (${HEAD}) VALUES (${ROW})`, (error, results) => {
+      if (error) {
+        response.status(400).json({"message": "error table transit"})
+        return error
+      }
+    })
+    pool.query(`INSERT INTO rawdata (${HEAD}) SELECT ${HEAD} FROM transitdata WHERE NOT EXISTS (SELECT * FROM rawdata WHERE Site_ID='${request.body[0].Site_ID}')`, (error, results) => {
+      if (error) {
+        response.status(400).json({"message": "data was duplicate or any"})
+        return error
+      }
+    })
+    pool.query(`DELETE FROM transitdata WHERE Site_ID='${request.body[0].Site_ID}'`, (error, results) => {
+      if (error) {
+        response.status(400).json({"message": "failed to detele transit data"})
+        return error
+      }
+    })
+    response.status(200).send('Data added')
+  } else {
+    response.status(400).json({"message": "bad request"})
+  }
+}
 
 exports.deleteData = (request, response) => {
   const SiteID = String(request.params.SiteID)
