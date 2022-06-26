@@ -42,6 +42,12 @@ module.exports = function(app) {
     controller.addDatas
   )
 
+  app.put(
+    '/changeData/:SiteID',
+    [authJwt.verifyToken],
+    controller.changeDatas
+  )
+
   app.delete(
     '/datas/:SiteID',
     [authJwt.verifyToken],

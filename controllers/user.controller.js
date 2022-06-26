@@ -127,6 +127,25 @@ exports.addDatas = (request, response) => {
   }
 }
 
+exports.changeDatas = (request, response) => {
+  const makeCond = (item) => {
+    return [Object.keys(item), `'${Object.values(item)}'`].join("=");
+  }
+
+  const CNDT = request.body.map(makeCond).toString()
+  const SiteID = String(request.params.SiteID)
+
+  // console.log(CNDT)
+  pool.query(`UPDATE rawdata SET ${CNDT} WHERE Site_ID='${SiteID}'`, (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`Data change with SiteID: ${SiteID}`)
+  })
+
+
+}
+
 exports.deleteData = (request, response) => {
   const SiteID = String(request.params.SiteID)
 
