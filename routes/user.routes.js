@@ -13,12 +13,6 @@ module.exports = function(app) {
 
   // FOR OTHER
   app.get(
-    '/datas/filter',
-    [authJwt.verifyToken],
-    controller.filterData
-  )
-
-  app.get(
     '/datas',
     [authJwt.verifyToken],
     controller.getDatas
@@ -34,6 +28,12 @@ module.exports = function(app) {
     '/SiteID',
     [authJwt.verifyToken],
     controller.getAllSiteID
+  )
+
+  app.get(
+    '/datas/filter',
+    [authJwt.verifyToken],
+    controller.filterData
   )
 
   app.post(
@@ -68,6 +68,21 @@ module.exports = function(app) {
   app.get(
     `/${TeleKey}/SiteID`,
     controller.getAllSiteID
+  )
+
+  app.get(
+    `/${TeleKey}/datas/filter`,
+    controller.filterData
+  )
+
+  app.post(
+    `/${TeleKey}/addDatas`,
+    controller.addDatas
+  )
+
+  app.put(
+    `/${TeleKey}/changeData/:SiteID`,
+    controller.changeDatas
   )
 
   app.delete(
