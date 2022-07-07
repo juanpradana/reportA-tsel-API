@@ -30,7 +30,7 @@ module.exports = function(app) {
     controller.getAllSiteID
   )
 
-  app.get(
+  app.post(
     '/datas/filter',
     [authJwt.verifyToken],
     controller.filterData

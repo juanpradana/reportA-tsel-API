@@ -53,7 +53,7 @@ exports.filterData = (request, response) => {
   }
 
   const COLL = () => {
-    const CLMN = request.body.coll.toString()
+    const CLMN = request.body.colls.toString()
     pool.query(`SELECT ${CLMN} FROM rawdata`, (error, results) => {
       if (error) {
         throw error
@@ -73,7 +73,7 @@ exports.filterData = (request, response) => {
   }
 
   const COLLwCONDT = () => {
-    const CLMN = request.body.coll.toString()
+    const CLMN = request.body.colls.toString()
     const CNDT = request.body.condit.map(makeCond).join(" OR ")
     pool.query(`SELECT ${CLMN} FROM rawdata WHERE ${CNDT}`, (error, results) => {
       if (error) {
@@ -83,8 +83,8 @@ exports.filterData = (request, response) => {
     })
   }
 
-  request.body.coll.length && request.body.condit.length ?
-    COLLwCONDT() : request.body.coll.length ?
+  request.body.colls.length && request.body.condit.length ?
+    COLLwCONDT() : request.body.colls.length ?
     COLL() : request.body.condit.length ?
     CONDT() : response.status(400).json({"message": "bad request"})
 
