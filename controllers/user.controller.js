@@ -63,7 +63,7 @@ exports.filterData = (request, response) => {
   }
 
   const CONDT = () => {
-    const CNDT = request.body.condit.map(makeCond).join(" OR ")
+    const CNDT = request.body.condit.map(makeCond).join(" AND ")
     pool.query(`SELECT * FROM rawdata WHERE ${CNDT}`, (error, results) => {
       if (error) {
         throw error
@@ -74,7 +74,7 @@ exports.filterData = (request, response) => {
 
   const COLLwCONDT = () => {
     const CLMN = request.body.colls.toString()
-    const CNDT = request.body.condit.map(makeCond).join(" OR ")
+    const CNDT = request.body.condit.map(makeCond).join(" AND ")
     pool.query(`SELECT ${CLMN} FROM rawdata WHERE ${CNDT}`, (error, results) => {
       if (error) {
         throw error
