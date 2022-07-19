@@ -2,8 +2,9 @@
 /node_modules
 
 # important
-/config
-.env
+auth.config.js
+datas.config.js
+db.config.js
 
 package-lock.json
 workspace.code-workspace
