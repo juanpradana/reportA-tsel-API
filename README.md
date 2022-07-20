@@ -112,6 +112,9 @@ This is the backend that is used to interact with Data Potensi.
 - ```npm install```
 - ```npm run start```
 
+for reset account
+- ```npm run reset```
+
 ## Project Resource
 - express (https://hapi.dev/)
 - pg (https://node-postgres.com/)
