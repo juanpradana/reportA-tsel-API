@@ -70,7 +70,7 @@ module.exports = function(app) {
     controller.getAllSiteID
   )
 
-  app.get(
+  app.post(
     `/${TeleKey}/datas/filter`,
     controller.filterData
   )

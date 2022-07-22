@@ -4,7 +4,9 @@
   "description": "Learn how NodeJS and EXpress can interact with PostgreSQL",
   "main": "index.js",
   "scripts": {
+    "reset": "node indexReset.js",
     "dev": "nodemon index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
