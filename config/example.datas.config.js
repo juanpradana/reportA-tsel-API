@@ -4,11 +4,11 @@ const config = {
   database: '',
   password: '',
   port: 5432,
-}
+};
 
-const TeleKey = ''
+const TeleKey = '';
 
 module.exports = {
   config,
-  TeleKey
-}
+  TeleKey,
+};
